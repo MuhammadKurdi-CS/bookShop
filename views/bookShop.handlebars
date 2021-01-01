@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Home Page</title>
+	<meta name="description" content="form to add new books">
+	<meta name="author" content="">
+	<link href="/style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+	<header>
+		<h1>Registered books</h1>
+		{{#if authorised}}
+		<a href="/logout">Log out</a>
+		{{else}}
+		<a href="/login">Log in</a>
+		{{/if}}
+	</header>
+	{{#if msg}}
+	<p class="msg">{{msg}}</p>
+	{{/if}}
+	<main>
+		<p>This is the home page. Users can see it when logging in.</p>
+		<div class="a-box-inner">
+			<div class="grid-container">
+				{{#each books}}
+				<div class="grid-item">
+					<div class="block_book-image">
+						<a class="a-color-base a-link-normal" href="/book/purchases?id={{this.id}}">
+							<img class= "book-image" alt="" src="bookimages/{{this.images}}">
+						</a>
+					</div>
+					<a class="a-color-base a-link-normal" href="/book/purchases?id={{this.id}}">
+						<span class="a-truncate-full a-offscreen">{{this.bookName}}</span>
+					</a>
+					<a class="" >
+						<span class="a-truncate-full a-offscreen">{{this.authorName}}</span>
+					</a> 
+					<div class="a-section a-spacing-micro acs-product-block__price">
+						<span class="a-price-symbol">£</span><span class="a-offscreen">{{this.price}}</span>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		{{#if authorised}}
+		<p><a href="/bookShop">Book Shop page</a></p>
+		{{/if}}
+	</main>
+</body>
+
+</html>
+

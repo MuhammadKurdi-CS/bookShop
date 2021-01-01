@@ -7,7 +7,7 @@ import Accounts from '../modules/accounts.js'
 const dbName = 'website.db'
 
 /**
- * The secure home page.
+ * The Books Shop home page.
  *
  * @name Home Page
  * @route {GET} /
@@ -64,7 +64,7 @@ router.post('/login', async ctx => {
 		const body = ctx.request.body
 		await account.login(body.user, body.pass)
 		ctx.session.authorised = true
-		const referrer = body.referrer || '/secure'
+		const referrer = body.referrer || '/bookShop'
 		return ctx.redirect(`${referrer}?msg=you are now logged in...`)
 	} catch(err) {
 		console.log(err)
