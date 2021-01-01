@@ -295,3 +295,39 @@ button#add:hover {
 	background-color: white;
 	color: grey;
 }
+
+/* HomePage styling */
+
+.grid-container {
+	position: relative;
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
+	grid-row-gap: 60px;
+	grid-column-gap: 10px;
+}
+
+.grid-item {
+	max-width: 192px;
+	max-height: 318px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgb(210 210 210);
+	padding: 20px;
+	font-size: 16px;
+	text-align: left;
+}
+
+.block_book-image {
+	position: relative;
+	height: 196px;
+}
+
+.book-image {
+	max-height: 170px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
