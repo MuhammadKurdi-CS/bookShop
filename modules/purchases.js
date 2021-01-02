@@ -11,7 +11,7 @@ class Purchases {
    * Create a purchase object
    * @param {String} [dbName=":memory:"] - The name of the database file to use.
    */
-    // testing commit
+    // testing commit2
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
