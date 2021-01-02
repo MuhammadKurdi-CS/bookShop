@@ -4,6 +4,7 @@ import Router from 'koa-router'
 const router = new Router()
 
 import Accounts from '../modules/accounts.js'
+import Books from '../modules/books.js'
 const dbName = 'website.db'
 
 /**
@@ -14,12 +15,16 @@ const dbName = 'website.db'
  */
 router.get('/', async ctx => {
 	try {
+        const book = await new Books(dbName)
+        const data = await book.showBooks()
+        ctx.hbs.books = data
+        console.log('index All books', ctx.hbs.books)
+        //if(ctx.hbs.authorised !== false) return ctx.redirect('index')
 		await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
 })
-
 
 /**
  * The user registration page.
