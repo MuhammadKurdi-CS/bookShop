@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Books</title>
+    <meta name="description" content="form for users">
+    <link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <a href="/">Home</a>
+    <h2>{{ item.book.bookName }}</h1>
+</header>
+{{#if msg}}
+    <p class="msg">{{msg}}</p>
+{{/if}}
+<main>
+    <p>
+        {{ item.book.description }}
+    </p>
+
+    <p>
+        £ {{ item.book.price }}
+    </p>
+
+    <p>
+        EAN: {{ item.book.EAN }}
+    </p>
+
+    <p>
+        <img  class= "book-image" src="/bookimages/{{item.book.images}}" />  
+    </p>
+
+    <p>
+        Amount paid so far:
+        {{ item.paidSoFar }}
+    </p>
+    <p>
+        Amount left to pay:
+        {{ item.outstandingAmount }}
+    </p>
+
+    <h3>
+        Purchase
+    </h3>
+    <ul>
+        {{#each item.puchases}}
+            <li>
+                {{this.customerID}} - {{this.amount}}
+            </li>
+        {{/each}}
+    </ul>
+
+    <h3>
+        Make a new book Sale
+    </h3>
+    <form action="/book/purchases" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="book_id" placeholder="name of the book" value="{{item.book.id}}">
+        <p>
+            <label for="target">How much is left ?</label><br/>
+            <input type="number" name="amount" placeholder="how much would you like to pay ?" value="{{body.amount}}">
+        </p>
+
+        <p><input type="submit" value="Create"></p>
+
+    </form>
+</main>
+</body>
+</html>

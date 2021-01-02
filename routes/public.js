@@ -1,4 +1,3 @@
-
 import Router from 'koa-router'
 
 const router = new Router()
@@ -8,8 +7,8 @@ import Books from '../modules/books.js'
 const dbName = 'website.db'
 
 /**
- * The Books Shop home page.
- *
+ * The Books Shop home page
+ * The users are able to view it without logging in
  * @name Home Page
  * @route {GET} /
  */
