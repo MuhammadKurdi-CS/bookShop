@@ -37,7 +37,7 @@ router.post('/book/purchases', koaBody, async ctx => {
     } catch (err) {
         ctx.hbs.msg = err.message
         ctx.hbs.body = ctx.request.body
-        await ctx.render('new-book', ctx.hbs)
+        await ctx.render('show-book', ctx.hbs)
     }
 })
 

@@ -1,0 +1,37 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Books</title>
+    <meta name="description" content="form for users">
+    <link href="" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <a href="/">Home</a>
+    <h2>{{ item.book.bookName }}</h2>
+</header>
+{{#if msg}}
+    <p class="msg">{{msg}}</p>
+{{/if}}
+<main>
+    <p>
+        {{ item.book.description }}
+    </p>
+
+    <p>
+        £ {{ item.book.price }}
+    </p>
+
+    <p>
+        EAN: {{ item.book.EAN }}
+    </p>
+
+    <p>
+        <img  class= "book-image" src="/bookimages/{{item.book.images}}" />  
+    </p>
+
+</main>
+</body>
+</html>

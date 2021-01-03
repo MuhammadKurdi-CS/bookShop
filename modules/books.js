@@ -15,7 +15,7 @@ class Books {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user books
-			const sql = `CREATE TABLE IF NOT EXISTS users\
+			const sql = `CREATE TABLE IF NOT EXISTS books\
 				(id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, bookName TEXT, authorName TEXT, 
                 price INTEGER, images TEXT, description TEXT, EAN INTEGER);`
 			await this.db.run(sql)
@@ -37,20 +37,6 @@ class Books {
         console.log('showing all books', data)
         return data
     }
-    
-    async showBooks() {
-		const sql = 'SELECT id, bookName, authorName, price, images, description, EAN FROM books ORDER BY id DESC'
-		const data = await this.db.all(sql)
-		console.log('reg books', data)
-		return data
-    }
-    
-    async getBooks(customerID) {
-		const sql = `SELECT id, bookName, authorName, price, images, description, EAN FROM books WHERE customerID = "${customerID}" ORDER BY id DESC`
-		const data = await this.db.all(sql)
-		console.log('reg books', data)
-		return data
-	}
 
 	async showBook(id) {
 		const sql = `SELECT id, bookName, authorName, price, images, description, EAN FROM books WHERE id = "${id}" ORDER BY id DESC`
@@ -71,6 +57,22 @@ class Books {
 		}
 		return data
 	}
+    
+    async createBooks(requestData) {
+        console.log(requestData)
+		Array.from(arguments).forEach(val => {
+			if (val.length === 0) throw new Error('missing field')
+		})
+        let sql = `SELECT COUNT(bookName) as records FROM books WHERE bookName="${requestData.bookName}";`
+		let data = await this.db.get(sql)
+		if(data.records !== 0) throw new Error(`bookName "${requestData.bookName}" already in use`)
+        sql = `INSERT INTO books(bookName, authorName, price, images, description, EAN) 
+        VALUES("${requestData.bookName}", "${requestData.authorName}", ${requestData.price}, 
+		"${requestData.images}", "${requestData.description}", ${requestData.EAN})`
+        data = await this.db.all(sql)
+        console.log('creating new book', data)
+        return true
+    }
 
     async close() {
 		await this.db.close()
