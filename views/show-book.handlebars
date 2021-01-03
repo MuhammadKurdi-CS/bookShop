@@ -9,8 +9,12 @@
 </head>
 <body>
 <header>
-    <a href="/">Home</a>
-    <h2>{{ item.book.bookName }}</h1>
+    
+    {{#if authorised}}
+		<p><a href="/bookShop">Book Shop page</a></p>
+    
+		{{/if}}
+    <h2>{{ item.book.bookName }}</h2>
 </header>
 {{#if msg}}
     <p class="msg">{{msg}}</p>
@@ -31,19 +35,21 @@
     <p>
         <img  class= "book-image" src="/bookimages/{{item.book.images}}" />  
     </p>
-
-    <p>
-        Amount paid so far:
-        {{ item.paidSoFar }}
-    </p>
-    <p>
-        Amount left to pay:
+    
+    <h3>
+        Purchase a book:
+    </h3>
+    
+     <p>
+        Cost of the book:
         {{ item.outstandingAmount }}
     </p>
+    
+    <p>
+        Payment:
+        {{ item.paidSoFar }}
+    </p>
 
-    <h3>
-        Purchase
-    </h3>
     <ul>
         {{#each item.puchases}}
             <li>
@@ -52,17 +58,14 @@
         {{/each}}
     </ul>
 
-    <h3>
-        Make a new book Sale
-    </h3>
     <form action="/book/purchases" enctype="multipart/form-data" method="post">
         <input type="hidden" name="book_id" placeholder="name of the book" value="{{item.book.id}}">
         <p>
-            <label for="target">How much is left ?</label><br/>
-            <input type="number" name="amount" placeholder="how much would you like to pay ?" value="{{body.amount}}">
+            <label for="target"> </label><br/>
+            <input type="number" name="amount" placeholder="Enter the extact amount?" value="{{body.amount}}">
         </p>
 
-        <p><input type="submit" value="Create"></p>
+        <p><input type="submit" value="Add the amount to go to basket"></p>
 
     </form>
 </main>

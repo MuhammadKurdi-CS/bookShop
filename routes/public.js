@@ -4,6 +4,8 @@ const router = new Router()
 
 import Accounts from '../modules/accounts.js'
 import Books from '../modules/books.js'
+import Purchases from '../modules/purchases.js'
+
 const dbName = 'website.db'
 
 /**
@@ -18,8 +20,24 @@ router.get('/', async ctx => {
         const data = await book.showBooks()
         ctx.hbs.books = data
         console.log('index All books', ctx.hbs.books)
-        //if(ctx.hbs.authorised !== false) return ctx.redirect('index')
 		await ctx.render('index', ctx.hbs)
+	} catch(err) {
+		await ctx.render('error', ctx.hbs)
+	}
+})
+
+/**
+ * The detail's page
+ * The users are able to view it without logging in
+ * @name index details page
+ * @route {GET} /
+ */
+router.get('/purchases-index', async ctx => {
+	try {
+        const book = await new Books(dbName)
+        const data = await book.showBook(ctx.request.query.id)
+        ctx.hbs.item = data
+        await ctx.render('show-book-index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
