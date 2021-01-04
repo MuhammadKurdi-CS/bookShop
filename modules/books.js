@@ -15,9 +15,9 @@ class Books {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user books
-			const sql = `CREATE TABLE IF NOT EXISTS books\
-				(id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, bookName TEXT, authorName TEXT, 
-                price INTEGER, images TEXT, description TEXT, EAN INTEGER);`
+			const sql = 'CREATE TABLE IF NOT EXISTS books\
+				(id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, bookName TEXT, authorName TEXT,\
+                price INTEGER, images TEXT, description TEXT, EAN INTEGER);'
 			await this.db.run(sql)
             const sql1 = `CREATE TABLE IF NOT EXISTS purchases\
                    (id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, book_id INTEGER, amount INTEGER);`
@@ -39,7 +39,8 @@ class Books {
     }
 
 	async showBook(id) {
-		const sql = `SELECT id, bookName, authorName, price, images, description, EAN FROM books WHERE id = "${id}" ORDER BY id DESC`
+		const sql = `SELECT id, bookName, authorName, price, images, description, 
+                EAN FROM books WHERE id = "${id}" ORDER BY id DESC`
 		const books = await this.db.all(sql)
 		const book = books[0]
 		console.log('book', book)
@@ -56,8 +57,8 @@ class Books {
 			outstandingAmount: book.price - paidSoFar
 		}
 		return data
-	}
-    
+    }
+
     async createBooks(requestData) {
         console.log(requestData)
 		Array.from(arguments).forEach(val => {

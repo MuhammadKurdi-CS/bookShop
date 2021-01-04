@@ -34,7 +34,10 @@ class Purchases {
         Array.from(arguments).forEach(val => {
             if (val.length === 0) throw new Error('missing field')
         })
-        const sql = `INSERT INTO purchases(customerID, book_id, amount)\
+        let sql = `SELECT COUNT(customerID) as records FROM purchases WHERE customerID="${requestData.customerID}";`
+		const data = await this.db.get(sql)
+		if(data.records !== 0) throw new Error(`customerID "${requestData.customerID}" already in use`)
+        sql = `INSERT INTO purchases(customerID, book_id, amount)\
         VALUES("${requestData.customerID}", "${requestData.book_id}", "${requestData.amount}")`
         await this.db.run(sql)
         return true
