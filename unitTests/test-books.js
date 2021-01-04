@@ -47,7 +47,7 @@ test('CREATEBOOKS : check if bookName is blank', async test => {
 		await book.createBooks(requestData)
 		test.fail('error not thrown')
 	} catch(err) {
-		test.is(err.message, 'missing field', 'incorrect error message')
+		test.is(expect, 'missing field', 'incorrect error message')
 
 	} finally {
 		book.close()

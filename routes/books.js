@@ -7,6 +7,13 @@ import Books from '../modules/books.js'
 import Purchases from '../modules/purchases.js'
 const dbName = 'website.db'
 
+/**
+ * The book's detail page
+ *
+ * @name Book's Detail Page
+ * @route {GET} /book/purchases
+ */
+
 router.get('/book/purchases', async ctx => {
 	if (ctx.session.authorised) {
 		const book = await new Books(dbName)
@@ -22,6 +29,13 @@ router.get('/book/purchases', async ctx => {
 		ctx.redirect('/login')
 	}
 })
+
+/**
+ * The script to process user's item purchases.
+ *
+ * @name Purchase Script
+ * @route {POST} /book/purchases
+ */
 
 router.post('/book/purchases', koaBody, async ctx => {
 	const purchase = await new Purchases(dbName)
