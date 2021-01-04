@@ -4,7 +4,6 @@ const router = new Router()
 
 import Accounts from '../modules/accounts.js'
 import Books from '../modules/books.js'
-import Purchases from '../modules/purchases.js'
 
 const dbName = 'website.db'
 
