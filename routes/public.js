@@ -15,10 +15,10 @@ const dbName = 'website.db'
  */
 router.get('/', async ctx => {
 	try {
-        const book = await new Books(dbName)
-        const data = await book.showBooks()
-        ctx.hbs.books = data
-        console.log('index All books', ctx.hbs.books)
+		const book = await new Books(dbName)
+		const data = await book.showBooks()
+		ctx.hbs.books = data
+		console.log('index All books', ctx.hbs.books)
 		await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
@@ -33,10 +33,10 @@ router.get('/', async ctx => {
  */
 router.get('/purchases-index', async ctx => {
 	try {
-        const book = await new Books(dbName)
-        const data = await book.showBook(ctx.request.query.id)
-        ctx.hbs.item = data
-        await ctx.render('show-book-index', ctx.hbs)
+		const book = await new Books(dbName)
+		const data = await book.showBook(ctx.request.query.id)
+		ctx.hbs.item = data
+		await ctx.render('show-book-index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
