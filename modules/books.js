@@ -4,7 +4,7 @@ import sqlite from 'sqlite-async'
 
 /**
  * Books
- * ES6 module that handles the data for the book shop.
+ * ES6 module that handles the data for the Book Shop.
  */
 class Books {
 	/**
@@ -14,7 +14,7 @@ class Books {
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
-			// we need this table to store the user books
+			// we need this table to store the books
 			const sql = 'CREATE TABLE IF NOT EXISTS books\
 				(id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, bookName TEXT, authorName TEXT,\
                 price INTEGER, images TEXT, description TEXT, EAN INTEGER);'
@@ -38,6 +38,11 @@ class Books {
 		return data
 	}
 
+	/**
+	 * Extracts all the id records for the books in the system
+	 * @returns {array} returns an array that holds all the id records in the website.db
+	 */
+
 	async showBook(id) {
 		const sql = `SELECT id, bookName, authorName, price, images, description, 
                 EAN FROM books WHERE id = "${id}" ORDER BY id DESC`
@@ -58,6 +63,17 @@ class Books {
 		}
 		return data
 	}
+
+	/**
+	 * A function to create books to test the website.db
+	 * @param {String} bookName
+	 * @param {String} authorName
+	 * @param {INTEGER} price
+	 * @param {String} images
+	 * @param {String} description
+	 * @param {INTEGER} EAN
+	 * @returns {Boolean} returns true if the new book has been added
+	 */
 
 	async createBooks(requestData) {
 		console.log(requestData)

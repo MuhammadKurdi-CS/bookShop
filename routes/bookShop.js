@@ -13,6 +13,13 @@ async function checkAuth(ctx, next) {
 
 router.use(checkAuth)
 
+/**
+ * The secure home page for the Book Shop
+ * The users are able to view all the books for sale when they are logged in
+ * @name Secure Home Page
+ * @route {GET} /
+ */
+
 router.get('/', async ctx => {
 	try {
 		const book = await new Books(dbName)
