@@ -11,39 +11,39 @@ class Purchases {
    * Create a purchase object
    * @param {String} [dbName=":memory:"] - The name of the database file to use.
    */
-    // testing commit2
+	// testing commit2
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user purchases
-			const sql = `CREATE TABLE IF NOT EXISTS purchases\
-            (id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, book_id INTEGER, amount INTEGER);`
-            await this.db.run(sql)
+			const sql = 'CREATE TABLE IF NOT EXISTS purchases\
+            (id INTEGER PRIMARY KEY AUTOINCREMENT, customerID INTEGER, book_id INTEGER, amount INTEGER);'
+			await this.db.run(sql)
 			return this
 		})()
 	}
 
-    /**
+	/**
 	 * registers a new user
 	 * @param {Integer} user's cusomter ID
 	 * @param {Integer} user's book ID
 	 * @param {Integer} the cost of the book
 	 * @returns {Boolean} returns true if the values has been added
 	 */
-    async new(requestData) {
-        Array.from(arguments).forEach(val => {
-            if (val.length === 0) throw new Error('missing field')
-        })
-        let sql = `SELECT COUNT(customerID) as records FROM purchases WHERE customerID="${requestData.customerID}";`
+	async new(requestData) {
+		Array.from(arguments).forEach(val => {
+			if (val.length === 0) throw new Error('missing field')
+		})
+		let sql = `SELECT COUNT(customerID) as records FROM purchases WHERE customerID="${requestData.customerID}";`
 		const data = await this.db.get(sql)
 		if(data.records !== 0) throw new Error(`customerID "${requestData.customerID}" already in use`)
-        sql = `INSERT INTO purchases(customerID, book_id, amount)\
+		sql = `INSERT INTO purchases(customerID, book_id, amount)\
         VALUES("${requestData.customerID}", "${requestData.book_id}", "${requestData.amount}")`
-        await this.db.run(sql)
-        return true
-    }
+		await this.db.run(sql)
+		return true
+	}
 
-    async close() {
+	async close() {
 		await this.db.close()
 	}
 }
