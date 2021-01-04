@@ -8,11 +8,12 @@ import Books from '../modules/books.js'
 const dbName = 'website.db'
 
 /**
- * The Books Shop home page
- * The users are able to view it without logging in
- * @name Home Page
+ * The public home page for the Book Shop
+ * The users are able to view all the book sales without logging in
+ * @name Public Home Page
  * @route {GET} /
  */
+
 router.get('/', async ctx => {
 	try {
 		const book = await new Books(dbName)
@@ -28,8 +29,8 @@ router.get('/', async ctx => {
 /**
  * The detail's page
  * The users are able to view it without logging in
- * @name index details page
- * @route {GET} /
+ * @name Public Book Details Page
+ * @route {GET} //purchases-index
  */
 router.get('/purchases-index', async ctx => {
 	try {

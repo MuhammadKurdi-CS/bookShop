@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#This creates a basic git hook that halts 'git commit' command to master branch.
+# using 'grep' to identify its currently on the master branch.
+
+if git branch | grep "* master" > /dev/null 2>&1
+then
+    cat <<\EOF
+Commits are not allowed on branch Master!
+EOF
+    exit 1
+fi
